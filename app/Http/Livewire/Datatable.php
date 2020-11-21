@@ -4,12 +4,17 @@ namespace App\Http\Livewire;
 
 use Illuminate\Support\Facades\Schema;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class Datatable extends Component
 {
+    use WithPagination;
+
     public $model;
     public $columns;
     protected $exclude;
+    protected $pagination;
+    protected $paginationTheme = 'tailwind';
 
     /**
      * @return mixed
@@ -33,11 +38,13 @@ class Datatable extends Component
     /**
      * @param $model
      * @param string $exclude
+     * @param int $pagination
      */
-    public function mount($model, string $exclude = '')
+    public function mount($model, string $exclude = '', int $pagination = 25)
     {
         $this->model = $model;
         $this->exclude = explode(',', $exclude);
+        $this->pagination = $pagination;
         $this->columns = $this->columns();
     }
 
@@ -46,7 +53,7 @@ class Datatable extends Component
      */
     public function records()
     {
-        return $this->builder()->get();
+        return $this->builder()->paginate($this->pagination);
     }
 
     /**
