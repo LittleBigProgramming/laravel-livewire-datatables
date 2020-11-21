@@ -8,9 +8,19 @@ class Datatable extends Component
 {
     public $model;
 
+    public function builder()
+    {
+        return $this->model::query();
+    }
+
     public function mount($model)
     {
         $this->model = $model;
+    }
+
+    public function records()
+    {
+        return $this->builder()->get();
     }
 
     public function render()
