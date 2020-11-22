@@ -15,6 +15,7 @@ class Datatable extends Component
     protected $exclude;
     public $pagination;
     protected $paginationTheme = 'tailwind';
+    public $checked = [];
 
     /**
      * @return mixed
@@ -33,6 +34,16 @@ class Datatable extends Component
             ->reject(function ($column) {
                 return in_array($column, $this->exclude);
             })->toArray();
+    }
+
+    public function deleteChecked()
+    {
+        dd($this->checkedRecords());
+    }
+
+    public function isChecked($record)
+    {
+        return in_array($record->id, $this->checked);
     }
 
     /**
@@ -66,5 +77,14 @@ class Datatable extends Component
     public function render()
     {
         return view('livewire.datatable');
+    }
+
+
+    /**
+     * @return mixed
+     */
+    protected function checkedRecords()
+    {
+        return $this->builder()->whereIn('id', $this->checked);
     }
 }
