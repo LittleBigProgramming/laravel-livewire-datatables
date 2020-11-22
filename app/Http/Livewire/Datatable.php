@@ -38,7 +38,7 @@ class Datatable extends Component
 
     public function deleteChecked()
     {
-        dd($this->checkedRecords());
+        $this->checkedRecords()->delete();
     }
 
     public function isChecked($record)
