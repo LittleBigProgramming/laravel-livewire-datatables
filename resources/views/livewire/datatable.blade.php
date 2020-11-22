@@ -29,11 +29,46 @@
                 </select>
             </div>
         </div>
+
+        <div class="flex py-2 pr-16 text-sm text-gray-600">
+            <div class="relative">
+                <div>
+                    <button type="button"
+                            class="inline-flex justify-center w-full rounded-md border border-gray-300
+                                   shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50
+                                   focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100
+                                   focus:ring-indigo-500 {{ count($checked) === 0 ? 'disabled:opacity-50' : '' }}"
+                            id="selection-button"
+                            aria-haspopup="true"
+                            aria-expanded="true"
+                            {{ count($checked) === 0 ? 'disabled' : '' }}
+                    >
+                        {{ count($checked) }} Records Selected
+
+                        <!-- Heroicon name: chevron-down -->
+                        <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="absolute hidden right-0 mt-1 py-2 w-48 bg-white rounded-lg shadow-lg" id="selection-menu">
+                    <a href=""
+                       class="block px-4 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                       wire:click="deleteChecked"
+                    >Delete</a>
+                </div>
+            </div>
+        </div>
     </div>
 
     <table class="min-w-full divide-y divide-gray-200">
         <thead>
             <tr>
+                <th scope="col" class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    Select
+                </th>
+
                 @foreach ($columns as $column)
                     <th scope="col" class="px-6 py-3 bg-gray-100 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         {{ $column }}
@@ -43,7 +78,10 @@
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
             @foreach($this->records() as $record)
-                <tr>
+                <tr class="@if ($this->isChecked($record)) bg-gray-200 @endif">
+                    <td class="flex justify-center">
+                        <input type="checkbox" class="my-8" value="{{ $record->id }}" wire:model="checked">
+                    </td>
                     @foreach ($columns as $column)
                         <td class="px-6 py-4 whitespace-nowrap overflow-clip overflow-hidden">
                             {{ $record->{$column} }}
@@ -57,4 +95,13 @@
             {{ $this->records()->links() }}
     </div>
 </div>
+
+<script>
+const selectionButton = document.getElementById('selection-button');
+const selectionMenu = document.getElementById('selection-menu');
+
+selectionButton.onclick = function () {
+    selectionMenu.classList.toggle('hidden');
+}
+</script>
 
