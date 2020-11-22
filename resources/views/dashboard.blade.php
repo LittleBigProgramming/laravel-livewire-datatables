@@ -11,7 +11,7 @@
                 <livewire:datatable
                     model="App\Models\User"
                     exclude="password,remember_token,two_factor_secret,two_factor_recovery_codes,current_team_id,profile_photo_path"
-                    pagination="25"
+                    pagination="10"
                 />
             </div>
         </div>

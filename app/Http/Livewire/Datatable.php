@@ -13,7 +13,7 @@ class Datatable extends Component
     public $model;
     public $columns;
     protected $exclude;
-    protected $pagination;
+    public $pagination;
     protected $paginationTheme = 'tailwind';
 
     /**
