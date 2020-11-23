@@ -12,17 +12,19 @@ class Datatable extends Component
 
     public $model;
     public $columns;
-    protected $exclude;
     public $pagination;
-    protected $paginationTheme = 'tailwind';
     public $checked = [];
+    public $query;
+
+    protected $exclude;
+    protected $paginationTheme = 'tailwind';
 
     /**
      * @return mixed
      */
     public function builder()
     {
-        return $this->model::query();
+        return new $this->model;
     }
 
     /**
@@ -64,7 +66,13 @@ class Datatable extends Component
      */
     public function records()
     {
-        return $this->builder()->paginate($this->pagination);
+        $builder = $this->builder();
+
+        if ($this->query) {
+            $builder = $builder->search($this->query);
+        }
+
+        return $builder->paginate($this->pagination);
     }
 
     /**
