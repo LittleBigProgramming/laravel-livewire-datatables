@@ -12,3 +12,4 @@ There is various functionality demonstrated such as:
 - Searching
 - Bulk Actions ie allowing multiple records to be selected and actioned.
 
+![Demo](https://raw.githubusercontent.com/LittleBigProgramming/laravel-livewire-datatables/master/laravel-livewire-datatables-demo.JPG)
