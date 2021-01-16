@@ -4,7 +4,7 @@
             <input class="border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-sm focus:outline-none"
                    type="search"
                    name="search"
-                   placeholder="Search"u
+                   placeholder="Search"
                    id="query"
                    wire:model="query"
             >
@@ -89,9 +89,26 @@
                         <input type="checkbox" class="my-8" value="{{ $record->id }}" wire:model="checked">
                     </td>
                     @foreach ($columns as $column)
-                        <td class="px-6 py-4 whitespace-nowrap overflow-clip overflow-hidden">
-                            {{ $record->{$column} }}
-                        </td>
+                        @if($column == 'status')
+                            <td class="px-6 py-4 whitespace-nowrap overflow-clip overflow-hidden">
+                                <span class="
+                                    px-2
+                                    inline-flex
+                                    text-xs
+                                    leading-5
+                                    font-semibold
+                                    rounded-full
+                                    @if ($record->{$column} == 'Inactive') bg-red-100 text-red-800 @else bg-green-100 text-green-800 @endif
+                                "
+                                >
+                                    {{ $record->{$column} }}
+                                </span>
+                            </td>
+                        @else
+                            <td class="px-6 py-4 whitespace-nowrap overflow-clip overflow-hidden text-sm text-gray-500">
+                                {{ $record->{$column} }}
+                            </td>
+                        @endif
                     @endforeach
                 </tr>
             @endforeach
