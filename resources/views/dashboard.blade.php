@@ -10,7 +10,7 @@
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <livewire:datatable
                     model="App\Models\User"
-                    exclude="password,remember_token,two_factor_secret,two_factor_recovery_codes,current_team_id,profile_photo_path"
+                    exclude="id,password,remember_token,two_factor_secret,two_factor_recovery_codes,current_team_id,profile_photo_path,email_verified_at,created_at,updated_at"
                     pagination="10"
                 />
             </div>
